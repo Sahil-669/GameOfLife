@@ -6,12 +6,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,10 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.conwaysgameoflife.R
 import com.example.conwaysgameoflife.ui.theme.Pixelify
 
 
@@ -32,6 +38,7 @@ import com.example.conwaysgameoflife.ui.theme.Pixelify
 fun GameScreen() {
     val viewModel : LifeViewModel = viewModel()
     val gameState by viewModel.gameState.collectAsState()
+    val isOn by viewModel.showGrid.collectAsState()
     val haptics = LocalHapticFeedback.current
 
     Column (modifier = Modifier.fillMaxSize()
@@ -48,24 +55,32 @@ fun GameScreen() {
                 }
             }
             is GameState.Playing -> {
-                Text(modifier = Modifier.align(Alignment.CenterHorizontally)
-                    .padding(vertical = 20.dp),
-                    text ="Conway's Game Of Life",
+                Box (modifier = Modifier.fillMaxWidth().padding(top = 20.dp)) {
+                Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = "Conway's Game Of Life",
                     fontFamily = Pixelify,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                     fontSize = 24.sp,
                 )
-                Box(
-                    modifier = Modifier
-                        .weight(0.7f)
-                        .padding(start = 45.dp, end = 45.dp, top = 15.dp, bottom = 15.dp)
-                        .border(1.dp, Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    GameGrid(state.grid,
-                        onCellClick = {x, y -> viewModel.onCellClicked(x, y)})
+                    IconButton(onClick = {viewModel.onToggleGrid()},
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                    ) {
+                        Icon(
+                            painter = if (isOn) painterResource(id = R.drawable.grid_on)
+                            else painterResource(id = R.drawable.grid_off),
+                            contentDescription = "Grid Lines Toggle"
+                        )
+                    }
                 }
+                GameGrid(
+                    state.grid,
+                    onCellClick = { x, y -> viewModel.onCellClicked(x, y) },
+                    showGrid = isOn
+                )
+                Spacer(modifier = Modifier.weight(1f))
                 ControlButtons(
                     onStart = {
                         haptics.performHapticFeedback(HapticFeedbackType.LongPress)
