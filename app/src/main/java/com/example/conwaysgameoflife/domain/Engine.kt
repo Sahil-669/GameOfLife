@@ -21,7 +21,7 @@ fun nextGeneration(grid: Grid): Grid {
 }
 
 fun countNeighbors(grid: Grid, x: Int, y: Int): Int {
-    var count = 0;
+    var count = 0
     for (dx in -1..1) {
         for (dy in -1..1) {
             if (dx == 0 && dy == 0) {

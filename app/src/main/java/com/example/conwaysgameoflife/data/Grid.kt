@@ -22,6 +22,20 @@ class Grid (val width: Int, val height: Int) {
         grid[x][y] = state
     }
 
+    fun toggleCell(x: Int, y: Int) {
+        grid[x][y] = !grid[x][y]
+    }
+
+    fun copy(): Grid {
+        val newGrid = Grid(width,height)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                newGrid.setCell(x,y, this.getCell(x, y))
+            }
+        }
+        return newGrid
+    }
+
 }
 
 
