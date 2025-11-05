@@ -21,11 +21,15 @@ class LifeViewModel : ViewModel() {
     val gameState: StateFlow<GameState> = _gameState
     private val _showGrid = MutableStateFlow(true)
     val showGrid: StateFlow<Boolean> = _showGrid
-    private val gridWidth = 20
-    private val gridHeight = 25
+    private val _gridWidth = MutableStateFlow(20)
+    val gridWidth: StateFlow<Int> = _gridWidth
+    private val _gridHeight = MutableStateFlow(20)
+    val gridHeight: StateFlow<Int> = _gridHeight
+    private val _showSheet = MutableStateFlow(false)
+    val showSheet: StateFlow<Boolean> = _showSheet
 
     init {
-        val initialGrid = Grid(gridWidth, gridHeight)
+        val initialGrid = Grid(gridWidth.value, gridHeight.value)
         _gameState.value = GameState.Playing(initialGrid)
     }
 
@@ -54,7 +58,7 @@ class LifeViewModel : ViewModel() {
         val currentState = _gameState.value
         if (currentState is GameState.Playing) {
             onStop()
-            val newGrid = Grid(gridWidth, gridHeight)
+            val newGrid = Grid(gridWidth.value, gridHeight.value)
             newGrid.randomize()
             _gameState.value = GameState.Playing(newGrid)
         }
@@ -71,7 +75,7 @@ class LifeViewModel : ViewModel() {
     fun onReset() {
         val currentState = _gameState.value
         if (currentState is GameState.Playing) {
-            val newGrid = Grid(gridWidth, gridHeight)
+            val newGrid = Grid(gridWidth.value, gridHeight.value)
             _gameState.value = GameState.Playing(newGrid)
         }
     }
