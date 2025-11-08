@@ -3,12 +3,14 @@ package com.example.conwaysgameoflife.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -27,9 +29,11 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.conwaysgameoflife.R
+import com.example.conwaysgameoflife.data.PresetPattern
 import com.example.conwaysgameoflife.ui.theme.Pixelify
 
 
@@ -55,7 +59,7 @@ fun GameScreen(
                 }
             }
             is GameState.Playing -> {
-                Box (modifier = Modifier.fillMaxWidth().padding(top = 20.dp)) {
+                Box (modifier = Modifier.fillMaxWidth().padding(top = 40.dp)) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
                     text = "Conway's Game Of Life",
@@ -80,7 +84,14 @@ fun GameScreen(
                     onCellClick = { x, y -> viewModel.onCellClicked(x, y) },
                     showGrid = isOn
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.height(30.dp))
+                PresetControls(
+                    onPresetSelected = { pattern ->
+                        viewModel.onPresetSelected(pattern)
+                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                    }
+                )
+                Spacer(modifier = Modifier.height(20.dp))
                 ControlButtons(
                     onStart = {
                         haptics.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -183,4 +194,50 @@ fun StyledButtons(
             fontSize = 14.sp
         )
     }
+}
+@Composable
+fun PresetControls(
+    onPresetSelected : (PresetPattern) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text ="Presets",
+        fontFamily = Pixelify,
+        color = Color.Black,
+        fontSize = 24.sp,
+        textAlign = TextAlign.Center
+    )
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = 30.dp, end = 30.dp, top = 10.dp),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        StyledButtons(
+            "Glider",
+            onClick = { onPresetSelected(PresetPattern.Glider) },
+            modifier = Modifier.weight(1f)
+        )
+        StyledButtons(
+            "Pulsar",
+            onClick = { onPresetSelected(PresetPattern.Pulsar) },
+            modifier = Modifier.weight(1f)
+        )
+    }
+    Row(
+        modifier.fillMaxWidth().padding(horizontal = 30.dp),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        StyledButtons(
+            "Glider Gun",
+            onClick = {onPresetSelected(PresetPattern.GliderGun)},
+            modifier = Modifier.weight(1f)
+        )
+        StyledButtons(
+            "R-Pento",
+            onClick = {onPresetSelected(PresetPattern.RPentomino)},
+            modifier = Modifier.weight(1f)
+        )
+    }
+
 }

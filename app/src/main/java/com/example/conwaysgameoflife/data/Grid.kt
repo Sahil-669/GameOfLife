@@ -36,6 +36,16 @@ class Grid (val width: Int, val height: Int) {
         return newGrid
     }
 
+    fun placePattern(pattern: PresetPattern, startX: Int, startY: Int) {
+        for (point in pattern.shape) {
+            val x = startX + point.first
+            val y = startY + point.second
+            if (x  in 0 until width && y in 0 until height) {
+                setCell(x, y, true)
+            }
+        }
+    }
+
 }
 
 

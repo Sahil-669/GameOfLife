@@ -4,6 +4,7 @@ package com.example.conwaysgameoflife.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.conwaysgameoflife.data.Grid
+import com.example.conwaysgameoflife.data.PresetPattern
 import com.example.conwaysgameoflife.domain.nextGeneration
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -85,5 +86,20 @@ class LifeViewModel : ViewModel() {
 
     fun onToggleGrid() {
         _showGrid.value = !_showGrid.value
+    }
+
+    fun onPresetSelected(pattern : PresetPattern) {
+        val currentState = _gameState.value
+        if (currentState is GameState.Playing) {
+            onStop()
+            val currentWidth = currentState.grid.width
+            val currentHeight = currentState.grid.height
+            val newGrid = Grid(currentWidth, currentHeight)
+            val startX = (currentWidth/2) - 5
+            val startY = (currentHeight/2) - 5
+            newGrid.placePattern(pattern, startX, startY)
+            _gameState.value = GameState.Playing(newGrid)
+        }
+
     }
 }
