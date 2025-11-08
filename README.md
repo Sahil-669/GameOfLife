@@ -20,7 +20,7 @@ A modern, fully interactive implementation of Conway's Game of Life, built from 
     * Pulsar
     * R-pentomino
     * Gosper Glider Gun
-* **Custom Grid Size:** Use a sleek modal bottom sheet to set a custom width and height for your simulation before you start.
+* **Custom Grid Size:** Use a sleek modal bottom sheet to set a custom grid size for your simulation before you start.
 * **Grid Toggle:** Show or hide the cell grid lines for a cleaner look, all with the tap of a button.
 * **Haptic Feedback:** Tactile feedback on all button presses for a more responsive feel.
 * **Portrait-Locked:** A stable and locked portrait orientation, ensuring a consistent user experience.
