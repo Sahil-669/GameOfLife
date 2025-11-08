@@ -36,8 +36,7 @@ fun StartScreen(
     onNavigateToHelp: () -> Unit
 ) {
     val showSheet by viewModel.showSheet.collectAsState()
-    val gridWidth by viewModel.gridWidth.collectAsState()
-    val gridHeight by viewModel.gridHeight.collectAsState()
+    val gridSize by viewModel.gridSize.collectAsState()
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
     Box(
@@ -95,20 +94,20 @@ fun StartScreen(
                     fontSize = 20.sp
                 )
                 Text(
-                    "Width: $gridWidth"
+                    "Width: $gridSize"
                 )
                 Slider(
-                    value = gridWidth.toFloat(),
-                    onValueChange = {viewModel.onWidthChanged(it)},
+                    value = gridSize.toFloat(),
+                    onValueChange = {viewModel.onSizeChanged(it)},
                     valueRange = 10f..50f,
                     steps = 39
                 )
                 Text(
-                    "Height: $gridHeight"
+                    "Height: $gridSize"
                 )
                 Slider(
-                    value = gridHeight.toFloat(),
-                    onValueChange = {viewModel.onHeightChanged(it)},
+                    value = gridSize.toFloat(),
+                    onValueChange = {viewModel.onSizeChanged(it)},
                     valueRange = 10f..50f,
                     steps = 39
                 )

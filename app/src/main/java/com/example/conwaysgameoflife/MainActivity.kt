@@ -43,8 +43,8 @@ fun AppNavigation() {
     ) {
         composable(AppRoutes.StartScreen.route) {
             val viewModel: StartViewModel = viewModel()
-            val gridWidth by viewModel.gridWidth.collectAsState()
-            val gridHeight by viewModel.gridHeight.collectAsState()
+            val gridWidth by viewModel.gridSize.collectAsState()
+            val gridHeight by viewModel.gridSize.collectAsState()
 
             StartScreen(
                 viewModel = viewModel,

@@ -7,19 +7,14 @@ import kotlinx.coroutines.flow.StateFlow
 class StartViewModel : ViewModel() {
     private val _showSheet = MutableStateFlow(false)
     val showSheet: StateFlow<Boolean> = _showSheet
-    private val _gridWidth = MutableStateFlow(20)
-    val gridWidth: StateFlow<Int> = _gridWidth
-    private val _gridHeight = MutableStateFlow(20)
-    val gridHeight: StateFlow<Int> = _gridHeight
+    private val _gridSize = MutableStateFlow(20)
+    val gridSize: StateFlow<Int> = _gridSize
 
     fun onToggleSize(isVisible: Boolean) {
         _showSheet.value = isVisible
     }
+    fun onSizeChanged(newSize: Float){
+        _gridSize.value = newSize.toInt()
+    }
 
-    fun onWidthChanged(width : Float) {
-        _gridWidth.value = width.toInt()
-    }
-    fun onHeightChanged(height : Float) {
-        _gridHeight.value = height.toInt()
-    }
 }
