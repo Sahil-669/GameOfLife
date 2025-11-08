@@ -29,14 +29,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.conwaysgameoflife.R
 import com.example.conwaysgameoflife.ui.theme.Pixelify
 
 
 @Composable
-fun GameScreen() {
-    val viewModel : LifeViewModel = viewModel()
+fun GameScreen(
+    viewModel : LifeViewModel
+) {
     val gameState by viewModel.gameState.collectAsState()
     val isOn by viewModel.showGrid.collectAsState()
     val haptics = LocalHapticFeedback.current

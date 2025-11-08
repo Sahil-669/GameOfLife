@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.sp
 import com.example.conwaysgameoflife.ui.theme.Pixelify
 
 @Composable
-fun HelpScreen() {
+fun HelpScreen(
+    onExit : () -> Unit
+) {
     val scrollState1 = rememberScrollState()
     val scrollState2 = rememberScrollState()
     Column(
@@ -114,7 +116,7 @@ fun HelpScreen() {
         }
         StyledButtons(
             "GOT IT! LET'S PLAY!",
-            {}
+            onExit
         )
     }
 }
