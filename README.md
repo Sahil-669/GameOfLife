@@ -7,7 +7,7 @@ A modern, fully interactive implementation of Conway's Game of Life, built from 
 | | |
 | :---: | :---: |
 | **Start Menu** | **Game Screen** |
-|  | [Screenshot of Game Screen] |
+| <img width="1080" height="1920" alt="Image" src="https://github.com/user-attachments/assets/fd7cbded-e021-4b27-962f-f4dc2071efab" /> | [Screenshot of Game Screen] |
 | **Grid Size Selector** | **How to Play** |
 | [Screenshot of Bottom Sheet] | [Screenshot of How to Play] |
 
